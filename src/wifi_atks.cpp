@@ -9,7 +9,6 @@
 #include "esp_system.h"
 #include "display.h"
 #include "mykeyboard.h"
-#include "evil_portal.h"
 #include "wifi_common.h"
 
 
@@ -123,24 +122,6 @@ void wifi_atk_menu() {
       delay(200);
     }
 }
-/***************************************************************************************
-** function: target_atk_menu
-** @brief: Open menu to choose which AP Attack
-***************************************************************************************/
-void target_atk_menu(String tssid,String mac, uint8_t channel) {
-    options = { 
-      {"Information", [=]()   { wifi_atk_info(tssid, mac, channel); }},
-      {"Deauth", [=]()        { target_atk(tssid, mac, channel); }},
-      {"Clone Portal", [=]()  { startEvilPortal(tssid, channel,false); }},
-      {"Deauth+Clone", [=]()  { startEvilPortal(tssid, channel,true); }},
-      {"Main Menu", [=]()     { backToMenu(); }}, 
-    };
-
-    delay(200);
-    loopOptions(options);
-    delay(200);
-}
-
 
 /***************************************************************************************
 ** function: target_atk

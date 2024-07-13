@@ -1,7 +1,6 @@
 #include "display.h"
 #include "mykeyboard.h"
-#include "wg.h" //for isConnectedWireguard to print wireguard lock
-#include "settings.h" //for timeStr
+#include "settings.h"
 
 #if defined(CARDPUTER) || defined(STICK_C_PLUS2)  //Battery Calculation
   #include <driver/adc.h>
@@ -231,9 +230,6 @@ void drawMainBorder() {
 
     int i=0;
     if(wifiConnected) { drawWifiSmall(WIDTH - 100, 7); i++;}               //Draw Wifi Symbol beside battery
-    if(BLEConnected) { drawBLESmall(WIDTH - (100 + 20*i), 7); i++; }       //Draw BLE beside Wifi
-    if(isConnectedWireguard) { drawWireguardStatus(WIDTH - (100 + 21*i), 7); i++; }//Draw Wg bedide BLE, if the others exist, if not, beside battery
-    
 
     //tft.drawRoundRect(5, 5, WIDTH - 10, HEIGHT - 10, 5, FGCOLOR);
     //tft.drawLine(5, 25, WIDTH - 6, 25, FGCOLOR);
@@ -329,26 +325,6 @@ void drawBatteryStatus() {
     tft.fillRoundRect(WIDTH - 40, 9, 30 * bat / 100, 13, 2, FGCOLOR);
     tft.drawLine(WIDTH - 30, 9, WIDTH - 30, 9 + 13, BGCOLOR);
     tft.drawLine(WIDTH - 20, 9, WIDTH - 20, 9 + 13, BGCOLOR);
-}
-
-/***************************************************************************************
-** Function name: drawWireguardStatus()
-** Description:   Draws a padlock when connected
-***************************************************************************************/
-void drawWireguardStatus(int x, int y) {
-  draw.deleteSprite();
-  draw.createSprite(20,17);
-    if(isConnectedWireguard){
-        draw.drawRoundRect(10, 0, 10, 16, 5, TFT_GREEN);
-        draw.fillRoundRect(10, 12, 10, 5, 0, TFT_GREEN);
-    } else {
-    draw.drawRoundRect(1, 0, 10, 16, 5, FGCOLOR);
-    draw.fillRoundRect(0, 12, 10, 5, 0, BGCOLOR);
-    draw.fillRoundRect(10, 12, 10, 5, 0, FGCOLOR);
-    }
-  draw.pushSprite(x,y);
-  draw.deleteSprite();
-
 }
 
 /***************************************************************************************

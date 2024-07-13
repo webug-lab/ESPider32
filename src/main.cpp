@@ -20,7 +20,6 @@ bool returnToMenu;
 char timeStr[10];
 time_t localTime;
 struct tm* timeInfo;
-ESP32Time rtc;
 bool clock_set = true;
 
 String ssid;
@@ -44,10 +43,8 @@ Keyboard_Class Keyboard = Keyboard_Class();
 #include "sd_functions.h"
 #include "wifi_common.h"
 #include "settings.h"
-#include "wg.h"
 #include "Wire.h"
 #include "sniffer.h"
-#include "clients.h"
 
 #ifdef CARDPUTER
 #include "led_control.h"
@@ -92,10 +89,12 @@ void setup() {
   int i = millis();
   tft.setTextColor(FGCOLOR, TFT_BLACK);
   tft.setTextSize(3);
-  tft.println("\nESPider32\n");
+  tft.println("\nESPider32");
   tft.setTextSize(2);
   tft.println("// webug\n");
   tft.println("Version " + String(webug_VERSION));
+
+  delay(1000);
 
   if (!LittleFS.begin(true)) {
     LittleFS.format();

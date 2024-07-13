@@ -8,11 +8,7 @@ extern char16_t FGCOLOR;
 #include <TFT_eSPI.h>
 #include <functional>
 #include <vector>
-//#include <SPIFFS.h>
 #include <LittleFS.h>
-#include <NTPClient.h>
-#include <Timezone.h>
-#include <ESP32Time.h>
 #include <EEPROM.h>
 
 #if defined (STICK_C_PLUS) || defined (STICK_C)
@@ -35,9 +31,6 @@ extern char timeStr[10];
 extern bool clock_set;
 extern time_t localTime;
 extern struct tm* timeInfo;
-extern ESP32Time rtc;
-extern NTPClient timeClient;
-extern Timezone myTZ;
 
 extern int prog_handler;    // 0 - Flash, 1 - LittleFS, 2 - Download
 
@@ -71,9 +64,7 @@ extern int RfTx;
 
 extern int RfRx;
 
-
 void readFGCOLORFromEEPROM();
 
 void backToMenu();
 
-void updateTimeStr(struct tm timeInfo);

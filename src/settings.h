@@ -1,6 +1,4 @@
 #include <EEPROM.h>
-#include <NTPClient.h>
-
 
 void setBrightness(int bright, bool save = true);
 

@@ -14,8 +14,6 @@ bool isConnectedWireguard = false;
 
 static constexpr const uint32_t UPDATE_INTERVAL_MS = 5000;
 
-static WireGuard wg;
-
 
 /*********************************************************************
 **  Function: parse_config_file                          
@@ -115,51 +113,4 @@ void read_and_parse_file() {
   parse_config_file(file);
 
 
-}
-
-
-/*********************************************************************
-**  Function: wg_setup                          
-**  connect to wireguard tunnel  
-**********************************************************************/
-void wg_setup()
-{
-    if(!wifiConnected) wifiConnectMenu();
-
-    read_and_parse_file();
-
-    Serial.println("Adjusting system time...");
-    configTime(9 * 60 * 60, 0, "ntp.jst.mfeed.ad.jp", "ntp.nict.jp");
-    tft.fillScreen(BGCOLOR);
-    tft.setCursor(0, 0);
-
-    Serial.println("Connected. Initializing WireGuard...");
-    //tft.println("Connecting to\nwireguard...");
-    wg.begin(
-        local_ip,
-        private_key,
-        endpoint_address,
-        public_key,
-        endpoint_port);
-    Serial.println(local_ip);
-    Serial.println(private_key);
-    Serial.println(endpoint_address);
-    Serial.println(public_key);
-    Serial.println(endpoint_port);
-
-    tft.fillScreen(BGCOLOR);
-    tft.setCursor(0, 0);
-    tft.setTextSize(3);
-
-    tft.setTextColor(TFT_GREEN, BGCOLOR);
-    tft.println("Connected!");
-    tft.setTextColor(FGCOLOR, BGCOLOR);
-    tft.println("IP on tunnel:");
-    tft.setTextColor(TFT_WHITE, BGCOLOR);
-    tft.println(local_ip);
-    tft.setTextColor(FGCOLOR, BGCOLOR);
-    Serial.println(local_ip);
-    delay(7000);
-    isConnectedWireguard = true;
-    tft.fillScreen(BGCOLOR);
 }
