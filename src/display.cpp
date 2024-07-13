@@ -49,7 +49,7 @@ void displayRedStripe(String text, uint16_t fgcolor, uint16_t bgcolor) {
     int size;
     if(text.length()*LW*FM<(tft.width()-2*FM*LW)) size = FM;
     else size = FP;
-    tft.fillSmoothRoundRect(10,HEIGHT/2-13,WIDTH-20,26,7,bgcolor);
+    tft.fillScreen(bgcolor);
     tft.setTextColor(fgcolor,bgcolor);
     if(size==FM) { 
       tft.setTextSize(FM); 
@@ -79,12 +79,8 @@ void loopOptions(const std::vector<std::pair<std::string, std::function<void()>>
       if(submenu) drawSubmenu(index, options, subText);
       else drawOptions(index, options, FGCOLOR, BGCOLOR);
       if(bright){
-        #if !defined(STICK_C_PLUS)
-        int bl = MINBRIGHT + round(((255 - MINBRIGHT) * (4 - index) * 0.25)); // 4 is the number of options
+        int bl = MINBRIGHT + round(((255 - MINBRIGHT) * (index + 1) * 0.20));
         analogWrite(BACKLIGHT, bl);
-        #else
-        axp192.ScreenBreath(100*(4 - index) * 0.25);  // 4 is the number of options
-        #endif
       }
       redraw=false;
       delay(200); 
@@ -166,6 +162,7 @@ void drawOptions(int index,const std::vector<std::pair<std::string, std::functio
     int cont = 1;
     menuSize = options.size();
     if(index>=MAX_MENU_SIZE) init=index-MAX_MENU_SIZE+1;
+    tft.fillScreen(BGCOLOR);
     for(i=0;i<menuSize;i++) {
       if(i>=init) {
         String text="";
@@ -189,16 +186,15 @@ void drawOptions(int index,const std::vector<std::pair<std::string, std::functio
 ***************************************************************************************/
 void drawSubmenu(int index,const std::vector<std::pair<std::string, std::function<void()>>>& options, String system) {
     int menuSize = options.size();
-    drawMainBorder();
-    tft.setTextColor(FGCOLOR,BGCOLOR);
-    tft.fillRect(6,26,WIDTH-12,20,BGCOLOR);
-    tft.fillRoundRect(6,26,WIDTH-12,HEIGHT-32,5,BGCOLOR);
-    tft.setTextSize(FP);
-    tft.setCursor(12,30);
+    tft.setTextColor(TFT_RED,BGCOLOR);
+    //tft.fillRect(6,26,WIDTH-12,20,BGCOLOR);
+    tft.fillRoundRect(6,26,WIDTH,HEIGHT-32,5,BGCOLOR);
+    tft.setTextSize(FM);
+    tft.setCursor(12,12);
     tft.setTextColor(FGCOLOR);
-    tft.println(system);
+    tft.println("// " + system);
 
-    if (index-1>=0) {
+    /*if (index-1>=0) {
       tft.setTextSize(FM);
       tft.setTextColor(FGCOLOR-0x2000);
       tft.drawCentreString(options[index-1].first.c_str(),WIDTH/2, 42,SMOOTH_FONT);
@@ -206,12 +202,13 @@ void drawSubmenu(int index,const std::vector<std::pair<std::string, std::functio
       tft.setTextSize(FM);
       tft.setTextColor(FGCOLOR-0x2000);
       tft.drawCentreString(options[menuSize-1].first.c_str(),WIDTH/2, 42,SMOOTH_FONT);
-    }
-      tft.setTextSize(FG);
-      tft.setTextColor(FGCOLOR);
-      tft.drawCentreString(options[index].first.c_str(),WIDTH/2, 67,SMOOTH_FONT);
+    }*/
 
-    if (index+1<menuSize) {
+    tft.setTextSize(FG);
+    tft.setTextColor(FGCOLOR);
+    tft.drawCentreString(options[index].first.c_str(),WIDTH/2, 67,SMOOTH_FONT);
+
+    /*if (index+1<menuSize) {
       tft.setTextSize(FM);
       tft.setTextColor(FGCOLOR-0x2000);
       tft.drawCentreString(options[index+1].first.c_str(),WIDTH/2, 102,SMOOTH_FONT);
@@ -219,10 +216,10 @@ void drawSubmenu(int index,const std::vector<std::pair<std::string, std::functio
       tft.setTextSize(FM);
       tft.setTextColor(FGCOLOR-0x2000);
       tft.drawCentreString(options[0].first.c_str(),WIDTH/2, 102,SMOOTH_FONT);
-    }
+    }*/
 
-    tft.drawFastHLine(WIDTH/2 - options[index].first.size()*FG*LW/2, 67+FG*LH,options[index].first.size()*FG*LW,FGCOLOR);
-    tft.fillRect(tft.width()-5,index*tft.height()/menuSize,5,tft.height()/menuSize,FGCOLOR);
+    //tft.drawFastHLine(WIDTH/2 - options[index].first.size()*FG*LW/2, 67+FG*LH,options[index].first.size()*FG*LW,FGCOLOR);
+    //tft.fillRect(tft.width()-5,index*tft.height()/menuSize,5,tft.height()/menuSize,FGCOLOR);
 
 }
 
@@ -230,16 +227,16 @@ void drawMainBorder() {
     tft.fillScreen(BGCOLOR);
     setTftDisplay(12, 12, FGCOLOR, 1, BGCOLOR);
 
-    // if(wifiConnected) {tft.print(timeStr);} else {tft.print("BRUCE 1.0b");}
+    // if(wifiConnected) {tft.print(timeStr);} else {tft.print("webug 1.0b");}
 
     int i=0;
-    if(wifiConnected) { drawWifiSmall(WIDTH - 90, 7); i++;}               //Draw Wifi Symbol beside battery
-    if(BLEConnected) { drawBLESmall(WIDTH - (90 + 20*i), 7); i++; }       //Draw BLE beside Wifi
-    if(isConnectedWireguard) { drawWireguardStatus(WIDTH - (90 + 21*i), 7); i++; }//Draw Wg bedide BLE, if the others exist, if not, beside battery
+    if(wifiConnected) { drawWifiSmall(WIDTH - 100, 7); i++;}               //Draw Wifi Symbol beside battery
+    if(BLEConnected) { drawBLESmall(WIDTH - (100 + 20*i), 7); i++; }       //Draw BLE beside Wifi
+    if(isConnectedWireguard) { drawWireguardStatus(WIDTH - (100 + 21*i), 7); i++; }//Draw Wg bedide BLE, if the others exist, if not, beside battery
     
 
-    tft.drawRoundRect(5, 5, WIDTH - 10, HEIGHT - 10, 5, FGCOLOR);
-    tft.drawLine(5, 25, WIDTH - 6, 25, FGCOLOR);
+    //tft.drawRoundRect(5, 5, WIDTH - 10, HEIGHT - 10, 5, FGCOLOR);
+    //tft.drawLine(5, 25, WIDTH - 6, 25, FGCOLOR);
     drawBatteryStatus();
 }
 
@@ -249,16 +246,13 @@ void drawMainBorder() {
 ***************************************************************************************/
 void drawMainMenu(int index) {
     const int border = 10;
-    const uint16_t colors[6] = {        
+    const uint16_t colors[3] = {        
         static_cast<uint16_t>(FGCOLOR), 
-        static_cast<uint16_t>(FGCOLOR), 
-        static_cast<uint16_t>(FGCOLOR), 
-        static_cast<uint16_t>(sdcardMounted ? FGCOLOR : TFT_DARKGREY), 
-        static_cast<uint16_t>(FGCOLOR), 
+        static_cast<uint16_t>(FGCOLOR),
         static_cast<uint16_t>(FGCOLOR)
     };
 
-    const char* texts[6] = { "WiFi", "BLE", "RF", "RFID", "Others", "Config" };
+    const char* texts[3] = { "WiFi", "Servers", "Settings" };
 
     drawMainBorder();
     tft.setTextSize(FG);
@@ -267,29 +261,19 @@ void drawMainMenu(int index) {
       case 0:
         drawWifi(80,27);
         break;
-      case 1:
-        drawBLE(80,27);
+      case 1: 
+        drawServer(80,27);
         break;
-      case 2:
-        drawRf(80,27);
-        break;
-      case 3:
-        drawRfid(80,27);
-        break;
-      case 4: 
-        drawOther(80,27);
-        break;
-      case 5:
-        drawCfg(80,27);
+      case 2: 
+        drawSettings(80,27);
         break;
     }
+    
     tft.setTextSize(FM);
     tft.drawCentreString(texts[index],tft.width()/2, tft.height()-(LH*FM+10), SMOOTH_FONT);
     tft.setTextSize(FG);
-    tft.drawChar('<',10,tft.height()/2+10);
-    tft.drawChar('>',tft.width()-(LW*FG+10),tft.height()/2+10);
-
-    
+    tft.drawChar('<',10,tft.height()/2);
+    tft.drawChar('>',tft.width()-(LW*FG),tft.height()/2);    
 }
 
 
@@ -407,14 +391,10 @@ void listFiles(int index, String fileList[][3]) {
 // desenhos do menu principal, sprite "draw" com 80x80 pixels
 
 void drawWifiSmall(int x, int y) {
-  draw.deleteSprite();
-  draw.createSprite(17,17);
-  draw.fillSprite(BGCOLOR);
-  draw.fillCircle(9,14,2,FGCOLOR);
-  draw.drawSmoothArc(9,14,5,7,130,230,FGCOLOR, BGCOLOR,true);
-  draw.drawSmoothArc(9,14,11,13,130,230,FGCOLOR, BGCOLOR,true);
-  draw.pushSprite(x,y);
-  draw.deleteSprite();
+  tft.fillRect(x,y,20,20,BGCOLOR);
+  tft.fillCircle(10+x,15+y,1,FGCOLOR);
+  tft.drawSmoothArc(10+x,15+y,6,5,130,230,FGCOLOR, BGCOLOR,true);
+  tft.drawSmoothArc(10+x,15+y,11,10,130,230,FGCOLOR, BGCOLOR,true);
 }
 
 void drawWifi(int x, int y) {
@@ -449,7 +429,7 @@ void drawBLE(int x, int y) {
   tft.drawArc(40+x,40+y,36,38,210,330,FGCOLOR,BGCOLOR);
 }
 
-void drawCfg(int x, int y) {
+void drawSettings(int x, int y) {
   tft.fillRect(x,y,80,80,BGCOLOR);
   int i=0;
   for(i=0;i<6;i++) {
@@ -480,7 +460,7 @@ void drawRfid(int x, int y) {
   tft.drawArc(15+x,65+y,38,35,180,270,FGCOLOR,BGCOLOR);
 }
 
-void drawOther(int x, int y) {
+void drawServer(int x, int y) {
   tft.fillRect(x,y,80,80,BGCOLOR);
   tft.fillCircle(40+x,40+y,7,FGCOLOR);
   tft.drawArc(40+x,40+y,18,15,0,340,FGCOLOR,BGCOLOR);

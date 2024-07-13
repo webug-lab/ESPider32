@@ -270,8 +270,8 @@ const char index_html[] PROGMEM = R"rawliteral(
 <body>
   <div class="container">
     <div class="float-element"><a onclick="logoutButton()" href='javascript:void(0);'>[X]</a></div>
-    <h1 align="center">BRUCE Firmware</h1>
-    <p>Firmware for offensive pranks and pentest studies and analysis. For educational purposes only. Don't use in environments where you are not allowed. All responsibilities for irresponsible usage of this firmware rest on your fin, sharky. Sincerely, Bruce.</p>
+    <h1 align="center">webug Firmware</h1>
+    <p>Firmware for offensive pranks and pentest studies and analysis. For educational purposes only. Don't use in environments where you are not allowed. All responsibilities for irresponsible usage of this firmware rest on your fin, sharky. Sincerely, webug.</p>
     <p>Firmware version: %FIRMWARE%</p>
     <p>Free Storage: <span id="freeSD">%FREESD%</span> | Used: <span id="usedSD">%USEDSD%</span> | Total: <span id="totalSD">%TOTALSD%</span></p>
     <p>
@@ -291,7 +291,7 @@ const char index_html[] PROGMEM = R"rawliteral(
 <script>
 function WifiConfig() {
   let wifiSsid = prompt("Please enter the Username of your network", "admin");
-  let wifiPwd = prompt("Please enter the Password of your network", "bruce");
+  let wifiPwd = prompt("Please enter the Password of your network", "webug");
   if (wifiSsid == null || wifiSsid == "" || wifiPwd == null) {
     window.alert("Invalid User or Password");
   } else {
@@ -483,6 +483,11 @@ const char logout_html[] PROGMEM = R"rawliteral(
       margin: 0;
       padding: 10px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
     }
   </style>
 </head>

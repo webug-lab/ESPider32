@@ -15,7 +15,7 @@ struct Config {
 File uploadFile;
   // WiFi as a Client
 String default_httpuser = "admin";  
-String default_httppassword = "bruce";
+String default_httppassword = "webug";
 const int default_webserverporthttp = 80;
 
 //WiFi as an Access Point
@@ -24,8 +24,8 @@ IPAddress AP_GATEWAY(172, 0, 0, 1);  // Gateway
 Config config;                        // configuration
 
 WebServer* server=nullptr;               // initialise webserver
-const char* host = "bruce";
-const String fileconf = "/bruce.txt";
+const char* host = "webug";
+const String fileconf = "/webug.txt";
 String uploadFolder="";
 
 
@@ -59,7 +59,6 @@ void loopOptionsWebUi() {
       {"AP mode", [=]()    { startWebUi(true); }},
   };
   delay(200);
-
   loopOptions(options);
   // On fail installing will run the following line
 }
@@ -154,7 +153,7 @@ String listFiles(bool ishtml, String folder) {
 
 String processor(const String& var) {
   String processedHtml = var;
-  processedHtml.replace("%FIRMWARE%", String(BRUCE_VERSION));
+  processedHtml.replace("%FIRMWARE%", String(webug_VERSION));
   processedHtml.replace("%FREESD%", humanReadableSize(SD.totalBytes() - SD.usedBytes()));
   processedHtml.replace("%USEDSD%", humanReadableSize(SD.usedBytes()));
   processedHtml.replace("%TOTALSD%", humanReadableSize(SD.totalBytes()));
@@ -418,17 +417,17 @@ void startWebUi(bool mode_ap) {
   tft.fillScreen(BGCOLOR);
   tft.drawSmoothRoundRect(5,5,5,5,WIDTH-10,HEIGHT-10,ALCOLOR,BGCOLOR);
   setTftDisplay(0,0,ALCOLOR,FM);
-  tft.drawCentreString("BRUCE WebUI",tft.width()/2,7,1);
+  tft.drawCentreString("webug WebUI",tft.width()/2,7,1);
   String txt;
   if(!mode_ap) txt = WiFi.localIP().toString();
   else txt = WiFi.softAPIP().toString();
   tft.setTextColor(FGCOLOR);
   
 #ifndef STICK_C
-  tft.drawCentreString("http://bruce.local", tft.width()/2,25,1);
+  tft.drawCentreString("http://webug.local", tft.width()/2,25,1);
   setTftDisplay(7,47);
 #else
-  tft.drawCentreString("http://bruce.local", tft.width()/2,17,1);
+  tft.drawCentreString("http://webug.local", tft.width()/2,17,1);
   setTftDisplay(7,26);
 #endif
   tft.setTextSize(FM);

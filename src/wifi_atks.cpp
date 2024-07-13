@@ -19,7 +19,7 @@
  * @attention This function is not meant to be called!
  * @see Project with original idea/implementation https://github.com/GANESH-ICMC/esp32-deauther
 */
-extern "C" int ieee80211_raw_frame_sanity_check(int32_t arg, int32_t arg2, int32_t arg3){
+extern "C" int ieee80211_raw_frame_sanity_chec_webug(int32_t arg, int32_t arg2, int32_t arg3){
     if (arg == 31337)
       return 1;
     else
@@ -266,7 +266,7 @@ const char Beacons[] PROGMEM = {
   "Virus-Infected Wi-Fi\n"
   "Starbucks Wi-Fi\n"
   "Text 64ALL for Password\n"
-  "Yell BRUCE for Password\n"
+  "Yell webug for Password\n"
   "The Password Is 1234\n"
   "Free Public Wi-Fi\n"
   "No Free Wi-Fi Here\n"

@@ -6,22 +6,18 @@
 #include <EEPROM.h>
 
 
-
-
 /*********************************************************************
 **  Function: setBrightness
 **  save brightness value into EEPROM
 **********************************************************************/
 void setBrightness(int bright, bool save) {
   if(bright>100) bright=100;
-
   #if !defined(STICK_C_PLUS)
   int bl = MINBRIGHT + round(((255 - MINBRIGHT) * bright/100 ));
   analogWrite(BACKLIGHT, bl);
   #else
   axp192.ScreenBreath(bright);
   #endif
-
   EEPROM.begin(EEPROMSIZE); // open eeprom
   EEPROM.write(2, bright); //set the byte
   EEPROM.commit(); // Store data to EEPROM
@@ -36,23 +32,14 @@ void getBrightness() {
   EEPROM.begin(EEPROMSIZE);
   int bright = EEPROM.read(2);
   EEPROM.end(); // Free EEPROM memory
-  if(bright>100) {
-    bright = 100;
-    #if !defined(STICK_C_PLUS)
-    int bl = MINBRIGHT + round(((255 - MINBRIGHT) * bright/100 ));
-    analogWrite(BACKLIGHT, bl);
-    #else
-    axp192.ScreenBreath(bright);
-    #endif
-    setBrightness(100);
-  }
-
+  
   #if !defined(STICK_C_PLUS)
-  int bl = MINBRIGHT + round(((255 - MINBRIGHT) * bright/100 ));
+  int bl = bright;
   analogWrite(BACKLIGHT, bl);
   #else
   axp192.ScreenBreath(bright);
   #endif
+  setBrightness(bright);
 }
 
 /*********************************************************************
@@ -90,11 +77,11 @@ int gsetRotation(bool set){
 **********************************************************************/
 void setBrightnessMenu() {
   options = {
-    {"100%", [=]() { setBrightness(100); }},
-    {"75 %", [=]() { setBrightness(75); }},
-    {"50 %", [=]() { setBrightness(50); }},
-    {"25 %", [=]() { setBrightness(25); }},
-    {" 0 %", [=]() { setBrightness(1); }},
+    {" 20 %", [=]() { setBrightness(20); }},
+    {" 40 %", [=]() { setBrightness(40); }},
+    {" 60 %", [=]() { setBrightness(60); }},
+    {" 80 %", [=]() { setBrightness(80); }},
+    {" 100 %", [=]() { setBrightness(100); }},
   };
   delay(200);
   loopOptions(options, true);
@@ -119,25 +106,20 @@ NTPClient timeClient(ntpUDP, ntpServer, selectedTimezone, daylightOffset_sec);
 
 void setUIColor(){
     EEPROM.begin(EEPROMSIZE);
-    //int color = EEPROM.read(5);
-
     options = {
-      {"Default",  [&]() { FGCOLOR=TFT_PURPLE+0x3000;EEPROM.write(5,0);EEPROM.commit(); }},
-      {"White",  [&]() { FGCOLOR=TFT_WHITE; EEPROM.write(5,1);EEPROM.commit(); }},
       {"Red",   [&]() { FGCOLOR=TFT_RED; EEPROM.write(5,2);EEPROM.commit(); }},
       {"Green",   [&]() { FGCOLOR=TFT_DARKGREEN; EEPROM.write(5,3);EEPROM.commit(); }},
       {"Blue",  [&]() { FGCOLOR=TFT_BLUE; EEPROM.write(5,4);EEPROM.commit(); }},
+      {"Purple",  [&]() { FGCOLOR=TFT_PURPLE; EEPROM.write(5,0);EEPROM.commit(); }},
+      {"White",  [&]() { FGCOLOR=TFT_WHITE; EEPROM.write(5,1);EEPROM.commit(); }},
       {"Yellow",   [&]() { FGCOLOR=TFT_YELLOW; EEPROM.write(5,5);EEPROM.commit(); }},
-      {"Magenta",   [&]() { FGCOLOR=TFT_MAGENTA; EEPROM.write(5,6);EEPROM.commit(); }},
-      {"Orange",   [&]() { FGCOLOR=TFT_ORANGE; EEPROM.write(5,7);EEPROM.commit(); }},
+      {"Orange",   [&]() { FGCOLOR=TFT_ORANGE; EEPROM.write(5,6);EEPROM.commit(); }},
     };
     delay(200);
     loopOptions(options);
     tft.setTextColor(TFT_BLACK, FGCOLOR);
     EEPROM.end();
     }
-
-
 
 void setClock() {
   bool auto_mode=true;
@@ -162,8 +144,31 @@ void setClock() {
       {"Sydney",    [&]() { timeClient.setTimeOffset(10 * 3600); tmz=5; }},
       {"Tokyo",     [&]() { timeClient.setTimeOffset(9 * 3600);  tmz=6; }},
       {"Moscow",    [&]() { timeClient.setTimeOffset(3 * 3600);  tmz=7; }},
-      {"Amsterdan", [&]() { timeClient.setTimeOffset(2 * 3600);  tmz=8; }},
+      {"Amsterdam", [&]() { timeClient.setTimeOffset(2 * 3600);  tmz=8; }},
+      {"London",    [&]() { timeClient.setTimeOffset(0 * 3600);  tmz=9; }},
+      {"Paris",     [&]() { timeClient.setTimeOffset(1 * 3600);  tmz=10; }},
+      {"Berlin",    [&]() { timeClient.setTimeOffset(1 * 3600);  tmz=11; }},
+      {"Cairo",     [&]() { timeClient.setTimeOffset(2 * 3600);  tmz=12; }},
+      {"Johannesburg", [&]() { timeClient.setTimeOffset(2 * 3600); tmz=13; }},
+      {"Beijing",   [&]() { timeClient.setTimeOffset(8 * 3600);  tmz=14; }},
+      {"Bangkok",   [&]() { timeClient.setTimeOffset(7 * 3600);  tmz=15; }},
+      {"Singapore", [&]() { timeClient.setTimeOffset(8 * 3600);  tmz=16; }},
+      {"Dubai",     [&]() { timeClient.setTimeOffset(4 * 3600);  tmz=17; }},
+      {"Los Angeles", [&]() { timeClient.setTimeOffset(-7 * 3600); tmz=18; }},
+      {"Chicago",   [&]() { timeClient.setTimeOffset(-5 * 3600); tmz=19; }},
+      {"Mexico City", [&]() { timeClient.setTimeOffset(-6 * 3600); tmz=20; }},
+      {"Buenos Aires", [&]() { timeClient.setTimeOffset(-3 * 3600); tmz=21; }},
+      {"Santiago",  [&]() { timeClient.setTimeOffset(-4 * 3600); tmz=22; }},
+      {"Delhi",     [&]() { timeClient.setTimeOffset(5.5 * 3600); tmz=23; }},
+      {"Jakarta",   [&]() { timeClient.setTimeOffset(7 * 3600);  tmz=24; }},
+      {"Seoul",     [&]() { timeClient.setTimeOffset(9 * 3600);  tmz=25; }},
+      {"Manila",    [&]() { timeClient.setTimeOffset(8 * 3600);  tmz=26; }},
+      {"Wellington", [&]() { timeClient.setTimeOffset(12 * 3600); tmz=27; }},
+      {"Honolulu",  [&]() { timeClient.setTimeOffset(-10 * 3600); tmz=28; }},
+      {"Anchorage", [&]() { timeClient.setTimeOffset(-9 * 3600); tmz=29; }},
     };
+
+
     delay(200);
     loopOptions(options);
     EEPROM.begin(EEPROMSIZE); // open eeprom

@@ -1,2 +1,2 @@
 #!/bin/bash
-rm -f Bruce3_*
+rm -f webug3_*

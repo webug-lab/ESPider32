@@ -22,7 +22,7 @@ bool update;
 size_t file_size;
   // WiFi as a Client
 String default_httpuser = "admin";  
-String default_httppassword = "bruce";
+String default_httppassword = "webug";
 const int default_webserverporthttp = 80;
 
 //WiFi as an Access Point
@@ -31,8 +31,8 @@ IPAddress AP_GATEWAY(172, 0, 0, 1);  // Gateway
 Config config;                        // configuration
 
 AsyncWebServer *server = nullptr;               // initialise webserver
-const char* host = "bruce";
-const String fileconf = "/bruce.txt";
+const char* host = "webug";
+const String fileconf = "/webug.txt";
 bool shouldReboot = false;            // schedule a reboot
 String uploadFolder="";
 
@@ -161,7 +161,7 @@ String listFiles(bool ishtml, String folder) {
 **********************************************************************/
 
 String processor(const String& var) {
-  if (var == "FIRMWARE") return String(BRUCE_VERSION);
+  if (var == "FIRMWARE") return String(webug_VERSION);
   else if (var == "FREESD") return humanReadableSize(SD.totalBytes() - SD.usedBytes());
   else if (var == "USEDSD") return humanReadableSize(SD.usedBytes());
   else if (var == "TOTALSD") return humanReadableSize(SD.totalBytes());
@@ -407,19 +407,20 @@ file_size = 0;
   configureWebServer();
   server->begin();
 
-  drawMainBorder();
+  //drawMainBorder();
   setTftDisplay(0,0,ALCOLOR,FM);
-  tft.drawCentreString("BRUCE WebUI",tft.width()/2,7,1);
+  tft.fillScreen(BGCOLOR);
+  tft.drawCentreString("WebUI",tft.width()/2,7,1);
   String txt;
   if(!mode_ap) txt = WiFi.localIP().toString();
   else txt = WiFi.softAPIP().toString();
   tft.setTextColor(FGCOLOR);
   
 #ifndef STICK_C
-  tft.drawCentreString("http://bruce.local", tft.width()/2,25,1);
+  tft.drawCentreString("http://webug.local", tft.width()/2,25,1);
   setTftDisplay(7,47);
 #else
-  tft.drawCentreString("http://bruce.local", tft.width()/2,17,1);
+  tft.drawCentreString("http://webug.local", tft.width()/2,17,1);
   setTftDisplay(7,26);
 #endif
   tft.setTextSize(FM);

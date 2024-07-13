@@ -28,7 +28,7 @@ bool wifiConnect(String ssid, int encryptation, bool isAP) {
     
     drawMainBorder();
     tft.setCursor(7,27);
-    tft.print("Connecting to: " + ssid + ".");
+    tft.print("\n  Connecting " + ssid + ".");
     int i=0;
     WiFi.begin(ssid, pwd);
 
@@ -46,6 +46,7 @@ bool wifiConnect(String ssid, int encryptation, bool isAP) {
     }
 
     if(WiFi.status() == WL_CONNECTED) { 
+      tft.fillScreen(BGCOLOR);
       wifiConnected=true;
       timeClient.begin();
       timeClient.update();
@@ -69,9 +70,10 @@ bool wifiConnect(String ssid, int encryptation, bool isAP) {
 
   } else { //Running in Access point mode
     IPAddress AP_GATEWAY(172, 0, 0, 1);
+    tft.fillScreen(BGCOLOR);
     WiFi.mode(WIFI_AP);
     WiFi.softAPConfig(AP_GATEWAY, AP_GATEWAY, IPAddress(255, 255, 255, 0));
-    WiFi.softAP("BruceNet", "",6,0,4,false);
+    WiFi.softAP("cloud-in", "",6,0,4,false);
     Serial.print("IP: "); Serial.println(WiFi.softAPIP());
     wifiConnected=true;
     return true;

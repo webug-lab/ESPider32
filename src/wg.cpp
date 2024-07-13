@@ -127,8 +127,6 @@ void wg_setup()
     if(!wifiConnected) wifiConnectMenu();
 
     read_and_parse_file();
-    
-
 
     Serial.println("Adjusting system time...");
     configTime(9 * 60 * 60, 0, "ntp.jst.mfeed.ad.jp", "ntp.nict.jp");

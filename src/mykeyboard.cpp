@@ -244,6 +244,7 @@ String keyboard(String mytext, int maxSize, String msg) {
 
     Keyboard.update();
     if (Keyboard.isPressed()) {
+      delay(200);
       tft.setCursor(cX,cY);
       Keyboard_Class::KeysState status = Keyboard.keysState();
       for (auto i : status.word) {

@@ -5,15 +5,13 @@
   ===========================================
 */
 
-
 /* include all necessary libraries */ 
+
 #include "freertos/FreeRTOS.h"
 #include "esp_wifi.h"
-//#include "esp_wifi_internal.h"
 #include "lwip/err.h"
 #include "esp_system.h"
 #include "esp_event.h"
-//#include "esp_event_loop.h"
 #include "nvs_flash.h"
 #include "driver/gpio.h"
 
@@ -25,9 +23,8 @@
 #include "globals.h"
 #include "sd_functions.h"
 
-
-
 //===== SETTINGS =====//
+
 #define CHANNEL 1
 #define FILENAME "raw"
 #define SAVE_INTERVAL 10 //save new file every 30s
@@ -35,24 +32,20 @@
 #define MAX_CHANNEL 11 //(only necessary if channelHopping is true)
 #define HOP_INTERVAL 214 //in ms (only necessary if channelHopping is true)
 
-
 //===== Run-Time variables =====//
+
 unsigned long lastTime = 0;
 unsigned long lastChannelChange = 0;
 int counter = 0;
 int ch = CHANNEL;
 bool fileOpen = false;
 
-//PCAP pcap = PCAP();
 PCAP pcap;
 String filename = "/" + (String)FILENAME + ".pcap";
 
 //===== FUNCTIONS =====//
 
 bool openFile(){
-  	//String filename = "capture.cap";
-
-	
     uint32_t magic_number = 0xa1b2c3d4;
     uint16_t version_major = 2;
     uint16_t version_minor = 4;
@@ -64,19 +57,17 @@ bool openFile(){
 	  //if(SD.exists(filename.c_str())) removeFile(SD);
 	  file = SD.open(filename, FILE_WRITE);
 	  if(file) {
-
-		filewrite_32(magic_number);
-		filewrite_16(version_major);
-		filewrite_16(version_minor);
-		filewrite_32(thiszone);
-		filewrite_32(sigfigs);
-		filewrite_32(snaplen);
-		filewrite_32(network);
-		return true;
+      filewrite_32(magic_number);
+      filewrite_16(version_major);
+      filewrite_16(version_minor);
+      filewrite_32(thiszone);
+      filewrite_32(sigfigs);
+      filewrite_32(snaplen);
+      filewrite_32(network);
+      return true;
 	  }
 	  return false;
 	}
-
 
 /* will be executed on every packet the ESP32 gets while beeing in promiscuous mode */
 void sniffer(void *buf, wifi_promiscuous_pkt_type_t type){
@@ -146,8 +137,7 @@ void sniffer_setup() {
   uint8_t cardType = SD.cardType();
   
   if(cardType == CARD_NONE){
-      Serial.println("No SD card attached");
-      displayRedStripe("No SD card");
+      Serial.println("No SD card.");
       return;
   }
 
@@ -167,6 +157,7 @@ void sniffer_setup() {
   openFile2();
 
   /* setup wifi */
+
   nvs_flash_init();
   //tcpip_adapter_init();             //velho
   ESP_ERROR_CHECK(esp_netif_init());  //novo
@@ -184,9 +175,9 @@ void sniffer_setup() {
   wifi_second_chan_t secondCh = (wifi_second_chan_t)NULL;
   esp_wifi_set_channel(ch,secondCh);
 
-  Serial.println("Sniffer started!");
+  Serial.println("START");
   
-  displayRedStripe("Sniffer started!", TFT_WHITE, TFT_DARKGREEN );
+  displayRedStripe("START", TFT_RED, TFT_BLACK );
  
   sniffer_loop();
 
@@ -219,17 +210,13 @@ void sniffer_loop() {
           //closeFile(); //save & close the file
           file.close();
           fileOpen = false; //update flag
-          Serial.println("==================");
-          Serial.println(filename + " saved!");
-          Serial.println("==================");
+          Serial.println(filename + " saved.");
           tft.setCursor(0, 20);
           tft.setTextColor(TFT_WHITE, BGCOLOR);
           tft.setTextSize(2);
-          tft.println("Saved to file in SD card, filename:");
-          tft.setTextSize(2);
-          displayRedStripe(filename, TFT_WHITE, FGCOLOR);
+          displayRedStripe(filename, TFT_RED, TFT_BLACK);
           // tft.println(filename);
-          tft.setTextColor(FGCOLOR, BGCOLOR);
+          tft.setTextColor(TFT_RED, BGCOLOR);
           openFile2(); //open new file
         }
        // }
@@ -247,7 +234,6 @@ void sniffer_loop() {
             tft.fillScreen(BGCOLOR);
             returnToMenu=true;
             break;
-            //goto Exit;
           }   // apertar ESC no Cardputer
           #endif
        
