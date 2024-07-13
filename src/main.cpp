@@ -92,9 +92,9 @@ void setup() {
   int i = millis();
   tft.setTextColor(FGCOLOR, TFT_BLACK);
   tft.setTextSize(3);
-  tft.println("\n// webug\n");
+  tft.println("\nESPider32\n");
   tft.setTextSize(2);
-  tft.println("Web Debug Spider\n");
+  tft.println("// webug\n");
   tft.println("Version " + String(webug_VERSION));
 
   if (!LittleFS.begin(true)) {

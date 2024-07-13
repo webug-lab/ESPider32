@@ -1,8 +1,8 @@
-# // webug
+# // ESPider32
 
 ## Version 0.2
 
-Web Debug is a tool designed to assist developers in identifying and fixing issues within web applications, specifically tailored for the M5 Cardputer. 
+ESPider32 is a tool designed to assist developers in identifying and fixing issues within web applications, specifically tailored for the M5 Cardputer. 
 
 The tool includes features for identifying potential security vulnerabilities in the code, such as SQL injection, cross-site scripting (XSS), and other common threats. By addressing these issues during the development phase, developers can create safer and more reliable applications for the M5 Cardputer.
 
