@@ -2,13 +2,18 @@
 
 ## Version 0.2
 
-ESPider32 is a tool designed to assist developers in identifying and fixing issues within web applications, specifically tailored for the M5 Cardputer. 
+ESPider32 is a portable tool designed to assist developers in identifying and fixing security issues within web applications, specifically tailored for the M5 Cardputer.
 
-The tool includes features for identifying potential security vulnerabilities in the code, such as SQL injection, cross-site scripting (XSS), and other common threats. By addressing these issues during the development phase, developers can create safer and more reliable applications for the M5 Cardputer.
+This tool includes features for identifying potential security vulnerabilities in the code, such as SQL injection, cross-site scripting (XSS), and other common threats. By addressing these issues during the development phase, developers can create safer and more reliable applications for the M5 Cardputer.
 
-## Goal of the tool
+**Key Features**:
+- **XSS Detection**: Focuses on identifying cross-site scripting vulnerabilities in web applications.
+- **Portability**: Compact and portable design allows for easy use anywhere, making it convenient to audit web applications on the go.
+- **Ease of Use**: User-friendly interface enables developers to quickly identify and fix issues.
 
-As the tool continues to evolve, it promises to further streamline the debugging process and enhance web security, ultimately contributing to more efficient and effective web development.
+ESPider32 makes developing web applications on the M5 Cardputer easier and more secure, helping developers create applications with the highest level of security.
+
+This repository is inspired by Bruce.
 
 ## Thank you
 
