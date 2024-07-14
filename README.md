@@ -1,6 +1,6 @@
 # // ESPider32
 
-## Version 0.2
+## Version 0.3
 
 ESPider32 is a portable tool designed to assist developers in identifying and fixing security issues within web applications, specifically tailored for the M5 Cardputer.
 

@@ -78,7 +78,7 @@ void setup() {
   resetTftDisplay();
 
   #if defined(BACKLIGHT)
-  pinMode(BACKLIGHT, OUTPUT);
+  //pinMode(BACKLIGHT, OUTPUT);
   #endif
 
   getBrightness();
@@ -90,13 +90,14 @@ void setup() {
 
   int i = millis();
   tft.setTextColor(FGCOLOR, TFT_BLACK);
-  tft.setTextSize(3);
-  tft.println("\nESPider32");
   tft.setTextSize(2);
-  tft.println("// webug\n");
+  tft.println("\n// webug\n");
+  tft.setTextSize(3);
+  tft.println("ESPider32\n");
+  tft.setTextSize(2);
   tft.println("Version " + String(webug_VERSION));
 
-  delay(1000);
+  delay(2000);
 
   if (!LittleFS.begin(true)) {
     LittleFS.format();
