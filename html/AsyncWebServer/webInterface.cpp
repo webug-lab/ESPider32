@@ -370,7 +370,7 @@ config.httppassword = default_httppassword;
 config.webserverporthttp = default_webserverporthttp;
 file_size = 0;
 
-  if(setupSdCard()) {
+  /*if(setupSdCard()) {
     if(SD.exists(fileconf)) {
       Serial.println("File Exists, reading " + fileconf);
       File file = SD.open(fileconf, FILE_READ);
@@ -389,7 +389,7 @@ file_size = 0;
       file.print("#ManagerUser;ManagerPassword;");
       file.close();
     }
-  }
+  }*/
 
   if (WiFi.status() != WL_CONNECTED) {
     // Choose wifi access mode
@@ -405,8 +405,6 @@ file_size = 0;
   new (server) AsyncWebServer(config.webserverporthttp);
   configureWebServer();
   server->begin();
-
-  //drawMainBorder();
   setTftDisplay(0,0,ALCOLOR,FM);
   tft.fillScreen(BGCOLOR);
   tft.setTextColor(FGCOLOR);
@@ -446,9 +444,6 @@ file_size = 0;
   free(server);
 
   server = nullptr;
-
-
   delay(100);
   wifiDisconnect();
-
 }

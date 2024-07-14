@@ -17,12 +17,12 @@ bool setupSdCard() {
   delay(10);
   if (!SD.begin(SDCARD_CS, sdcardSPI)) { 
     sdcardSPI.end(); // Closes SPI connections and release pin header.
-    //Serial.println("Failed to mount SDCARD");
+    Serial.println("Failed to mount SDCARD");
     sdcardMounted = false;
     return false;
   }
   else {
-    //Serial.println("SDCARD mounted successfully");
+    Serial.println("SDCARD mounted successfully");
     sdcardMounted = true;
     return true;
   }

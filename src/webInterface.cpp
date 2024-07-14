@@ -13,8 +13,8 @@ struct Config {
 
 File uploadFile;
   // WiFi as a Client
-String default_httpuser = "c10ud";  
-String default_httppassword = "webug1nthecl0ud";
+String default_httpuser = "admin";  
+String default_httppassword = "webug";
 const int default_webserverporthttp = 80;
 
 //WiFi as an Access Point
@@ -400,7 +400,7 @@ void startWebUi(bool mode_ap) {
   config.httppassword = default_httppassword;
   config.webserverporthttp = default_webserverporthttp;
 
-  if(setupSdCard()) {
+  /*if(setupSdCard()) {
     if(SD.exists(fileconf)) {
       Serial.println("File Exists, reading " + fileconf);
       File file = SD.open(fileconf, FILE_READ);
@@ -419,7 +419,7 @@ void startWebUi(bool mode_ap) {
       file.print("#ManagerUser;ManagerPassword;");
       file.close();
     }
-  }
+  }*/
 
   if (WiFi.status() != WL_CONNECTED) {
     wifiConnectMenu(mode_ap);
