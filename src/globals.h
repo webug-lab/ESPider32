@@ -38,11 +38,9 @@ extern struct tm* timeInfo;
 
 extern int prog_handler;    // 0 - Flash, 1 - LittleFS, 2 - Download
 
-extern bool sdcardMounted;  // informa se o cartão está montado ou não, sem precisar chamar a função setupSdCard
+extern bool sdcardMounted; 
 
-extern bool wifiConnected;  // informa se o wifi está ativo ou não
-
-extern bool BLEConnected;  // informa se o BLE está ativo ou não
+extern bool wifiConnected;
 
 extern std::vector<std::pair<std::string, std::function<void()>>> options;
 
@@ -59,15 +57,6 @@ extern uint8_t buff[4096];
 extern const int bufSize;
 
 extern bool returnToMenu; // variável para verificação e quebrar os loops
-
-extern int IrTx;
-
-extern int IrRx;
-
-extern int RfTx;
-
-extern int RfRx;
-
 
 void readFGCOLORFromEEPROM();
 

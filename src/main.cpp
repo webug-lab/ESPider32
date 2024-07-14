@@ -9,18 +9,9 @@
 // Public Globals Variables
 int prog_handler;
 int rotation;
-int IrTx;
-int IrRx;
-int RfTx;
-int RfRx;
 bool sdcardMounted;
 bool wifiConnected;
-bool BLEConnected;
 bool returnToMenu;
-char timeStr[10];
-time_t localTime;
-struct tm* timeInfo;
-bool clock_set = true;
 
 String ssid;
 String pwd;
@@ -65,7 +56,6 @@ void setup() {
   prog_handler = 0;
   sdcardMounted = false;
   wifiConnected = false;
-  BLEConnected = false;
 
   Keyboard.begin();
   pinMode(0, INPUT);
@@ -81,10 +71,6 @@ void setup() {
   #endif
 
   getBrightness();
-  gsetIrTxPin();
-  gsetIrRxPin();
-  gsetRfTxPin();
-  gsetRfRxPin();
   readFGCOLORFromEEPROM();
 
   int i = millis();
