@@ -138,41 +138,41 @@ String keyboard(String mytext, int maxSize, String msg) {
   while(1) {
     if(redraw) {
       tft.setCursor(0,0);
-      tft.setTextColor(TFT_WHITE, BGCOLOR);
+      tft.setTextColor(FGCOLOR, BGCOLOR);
       tft.setTextSize(FM);
 
       //Draw the rectangles
       if(y<0) {
         tft.fillRect(0,1,WIDTH,22,BGCOLOR);
-        tft.drawRect(7,2,46,20,TFT_WHITE);       // Ok Rectangle
-        tft.drawRect(55,2,50,20,TFT_WHITE);      // CAP Rectangle
-        tft.drawRect(107,2,50,20,TFT_WHITE);     // DEL Rectangle
-        tft.drawRect(159,2,74,20,TFT_WHITE);     // SPACE Rectangle
+        tft.drawRect(7,2,46,20,FGCOLOR);       // Ok Rectangle
+        tft.drawRect(55,2,50,20,FGCOLOR);      // CAP Rectangle
+        tft.drawRect(107,2,50,20,FGCOLOR);     // DEL Rectangle
+        tft.drawRect(159,2,74,20,FGCOLOR);     // SPACE Rectangle
         tft.drawRect(3,32,WIDTH-3,20,FGCOLOR); // mystring Rectangle
 
 
-        if(x==0 && y==-1) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(7,2,50,20,TFT_WHITE); }
-        else tft.setTextColor(TFT_WHITE, BGCOLOR);
+        if(x==0 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(7,2,50,20,FGCOLOR); }
+        else tft.setTextColor(FGCOLOR, BGCOLOR);
         tft.drawString("OK", 18, 4);
 
         
-        if(x==1 && y==-1) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(55,2,50,20,TFT_WHITE); }
-        else if(caps) { tft.fillRect(55,2,50,20,TFT_DARKGREY); tft.setTextColor(TFT_WHITE, TFT_DARKGREY); }
-        else tft.setTextColor(TFT_WHITE, BGCOLOR);
+        if(x==1 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(55,2,50,20,FGCOLOR); }
+        else if(caps) { tft.fillRect(55,2,50,20,TFT_DARKGREY); tft.setTextColor(FGCOLOR, TFT_DARKGREY); }
+        else tft.setTextColor(FGCOLOR, BGCOLOR);
         tft.drawString("CAP", 64, 4);
       
 
-        if(x==2 && y==-1) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(107,2,50,20,TFT_WHITE); }
-        else tft.setTextColor(TFT_WHITE, BGCOLOR);
+        if(x==2 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(107,2,50,20,FGCOLOR); }
+        else tft.setTextColor(FGCOLOR, BGCOLOR);
         tft.drawString("DEL", 115, 4);
 
-        if(x>2 && y==-1) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(159,2,74,20,TFT_WHITE); }
-        else tft.setTextColor(TFT_WHITE, BGCOLOR);
+        if(x>2 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(159,2,74,20,FGCOLOR); }
+        else tft.setTextColor(FGCOLOR, BGCOLOR);
         tft.drawString("SPACE", 168, 4);
       }
 
       tft.setTextSize(FP);
-      tft.setTextColor(TFT_WHITE, 0x5AAB);
+      tft.setTextColor(FGCOLOR, 0x5AAB);
       tft.drawString(msg.substring(0,38), 3, 24);
       
       tft.setTextSize(FM);
@@ -180,7 +180,7 @@ String keyboard(String mytext, int maxSize, String msg) {
       // reseta o quadrado do texto
       if (mytext.length() == 19 || mytext.length() == 20 || mytext.length() == 38 || mytext.length() == 39) tft.fillRect(3,32,WIDTH-3,20,BGCOLOR); // mystring Rectangle
       // escreve o texto
-      tft.setTextColor(TFT_WHITE);    
+      tft.setTextColor(FGCOLOR);    
       if(mytext.length()>19) { 
         tft.setTextSize(FP);
         if(mytext.length()>38) { 
@@ -197,16 +197,16 @@ String keyboard(String mytext, int maxSize, String msg) {
       tft.drawRect(3,32,WIDTH-3,20,FGCOLOR); // mystring Rectangle
       
 
-      tft.setTextColor(TFT_WHITE, BGCOLOR);    
+      tft.setTextColor(FGCOLOR, BGCOLOR);    
       tft.setTextSize(FM);
 
 
       for(i=0;i<4;i++) {
         for(j=0;j<12;j++) {
           //use last coordenate to paint only this letter
-          if(x2==j && y2==i) { tft.setTextColor(TFT_WHITE, BGCOLOR); tft.fillRect(j*18+11,i*19+54,21,19,BGCOLOR);}
+          if(x2==j && y2==i) { tft.setTextColor(FGCOLOR, BGCOLOR); tft.fillRect(j*18+11,i*19+54,21,19,BGCOLOR);}
           /* If selected, change font color and draw Rectangle*/
-          if(x==j && y==i) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(j*18+11,i*19+54,21,19,TFT_WHITE);}
+          if(x==j && y==i) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(j*18+11,i*19+54,21,19,FGCOLOR);}
           
                     
           /* Print the letters */
@@ -214,7 +214,7 @@ String keyboard(String mytext, int maxSize, String msg) {
           else tft.drawChar(keys[i][j][1], (j*18+16), (i*19+56));
 
           /* Return colors to normal to print the other letters */
-          if(x==j && y==i) { tft.setTextColor(TFT_WHITE, BGCOLOR); }
+          if(x==j && y==i) { tft.setTextColor(FGCOLOR, BGCOLOR); }
         }
       }
       // save actual key coordenate
@@ -266,7 +266,7 @@ String keyboard(String mytext, int maxSize, String msg) {
         tft.setCursor((cX-fS*LW),cY);
         tft.setTextColor(FGCOLOR,BGCOLOR);
         tft.print(" "); 
-        tft.setTextColor(TFT_WHITE, 0x5AAB);
+        tft.setTextColor(FGCOLOR, 0x5AAB);
         tft.setCursor(cX-fS*LW,cY);
         cX=tft.getCursorX();
         cY=tft.getCursorY();
@@ -296,7 +296,7 @@ String keyboard(String mytext, int maxSize, String msg) {
         tft.setCursor((cX-fS*LW),cY);
         tft.setTextColor(FGCOLOR,BGCOLOR);
         tft.print(" "); 
-        tft.setTextColor(TFT_WHITE, 0x5AAB);
+        tft.setTextColor(FGCOLOR, 0x5AAB);
         tft.setCursor(cX-fS*LW,cY);
         cX=tft.getCursorX();
         cY=tft.getCursorY();         
@@ -423,44 +423,44 @@ String keyboard(String mytext, int maxSize, String msg) {
     if(redraw) {
       tft.setCursor(0,0);
       tft.fillScreen(BGCOLOR);
-      tft.setTextColor(TFT_WHITE, BGCOLOR);
+      tft.setTextColor(FGCOLOR, BGCOLOR);
       tft.setTextSize(FM);
 
       //Draw the rectangles
-      tft.drawRect(7,2,20,10,TFT_WHITE);       // Ok Rectangle
-      tft.drawRect(27,2,25,10,TFT_WHITE);      // CAP Rectangle
-      tft.drawRect(52,2,25,10,TFT_WHITE);     // DEL Rectangle
-      tft.drawRect(77,2,50,10,TFT_WHITE);     // SPACE Rectangle
+      tft.drawRect(7,2,20,10,FGCOLOR);       // Ok Rectangle
+      tft.drawRect(27,2,25,10,FGCOLOR);      // CAP Rectangle
+      tft.drawRect(52,2,25,10,FGCOLOR);     // DEL Rectangle
+      tft.drawRect(77,2,50,10,FGCOLOR);     // SPACE Rectangle
       tft.drawRect(3,22,WIDTH-3,11,FGCOLOR); // mystring Rectangle
 
 
-      if(x==0 && y==-1) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(7,2,20,10,TFT_WHITE); }
-      else tft.setTextColor(TFT_WHITE, BGCOLOR);
+      if(x==0 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(7,2,20,10,FGCOLOR); }
+      else tft.setTextColor(FGCOLOR, BGCOLOR);
       tft.drawString("OK", 10, 4);
 
       
-      if(x==1 && y==-1) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(27,2,25,10,TFT_WHITE); }
-      else if(caps) { tft.fillRect(55,2,50,20,TFT_DARKGREY); tft.setTextColor(TFT_WHITE, TFT_DARKGREY); }
-      else tft.setTextColor(TFT_WHITE, BGCOLOR);
+      if(x==1 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(27,2,25,10,FGCOLOR); }
+      else if(caps) { tft.fillRect(55,2,50,20,TFT_DARKGREY); tft.setTextColor(FGCOLOR, TFT_DARKGREY); }
+      else tft.setTextColor(FGCOLOR, BGCOLOR);
       tft.drawString("CAP", 30, 4);
     
 
-      if(x==2 && y==-1) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(52,2,25,10,TFT_WHITE); }
-      else tft.setTextColor(TFT_WHITE, BGCOLOR);
+      if(x==2 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(52,2,25,10,FGCOLOR); }
+      else tft.setTextColor(FGCOLOR, BGCOLOR);
       tft.drawString("DEL", 55, 4);
 
-      if(x>2 && y==-1) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(77,2,50,10,TFT_WHITE); }
-      else tft.setTextColor(TFT_WHITE, BGCOLOR);
+      if(x>2 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(77,2,50,10,FGCOLOR); }
+      else tft.setTextColor(FGCOLOR, BGCOLOR);
       tft.drawString("SPACE", 80, 4);
 
       tft.setTextSize(FP);
-      tft.setTextColor(TFT_WHITE);
+      tft.setTextColor(FGCOLOR);
       tft.drawString(msg.substring(0,38), 3, 14);
       
       tft.setTextSize(FM);
 
 
-      tft.setTextColor(TFT_WHITE, 0x5AAB);    
+      tft.setTextColor(FGCOLOR, 0x5AAB);    
       if(mytext.length()>19) { 
         tft.setTextSize(FP);
         if(mytext.length()>38) { 
@@ -475,21 +475,21 @@ String keyboard(String mytext, int maxSize, String msg) {
       }
       
 
-      tft.setTextColor(TFT_WHITE, BGCOLOR);    
+      tft.setTextColor(FGCOLOR, BGCOLOR);    
       tft.setTextSize(FM);
 
 
       for(i=0;i<4;i++) {
         for(j=0;j<12;j++) {
           /* If selected, change font color and draw Rectangle*/
-          if(x==j && y==i) { tft.setTextColor(BGCOLOR, TFT_WHITE); tft.fillRect(j*11+15,i*9+34,10,10,TFT_WHITE);}
+          if(x==j && y==i) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(j*11+15,i*9+34,10,10,FGCOLOR);}
           
           /* Print the letters */
           if(!caps) tft.drawChar(keys[i][j][0], (j*11+18), (i*9+36));
           else tft.drawChar(keys[i][j][1], (j*11+18), (i*9+36));
 
           /* Return colors to normal to print the other letters */
-          if(x==j && y==i) { tft.setTextColor(TFT_WHITE, BGCOLOR); }
+          if(x==j && y==i) { tft.setTextColor(FGCOLOR, BGCOLOR); }
         }
       }
       redraw = false;
