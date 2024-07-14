@@ -2,6 +2,7 @@
 #include "wifi_common.h"
 #include "mykeyboard.h"   // usinf keyboard when calling rename
 #include "display.h"      // using displayRedStripe  and loop options
+#include "settings.h"     // using settings to get the version
 
 
 /***************************************************************************************
@@ -10,10 +11,6 @@
 ***************************************************************************************/
 bool wifiConnect(String ssid, int encryptation, bool isAP) {
   if(!isAP) {
-    int tmz;
-    EEPROM.begin(EEPROMSIZE);
-    tmz = EEPROM.read(8);        // read timezone
-    if(tmz>8) tmz=0;
 
     pwd = EEPROM.readString(10); //password
 
@@ -28,15 +25,16 @@ bool wifiConnect(String ssid, int encryptation, bool isAP) {
     
     drawMainBorder();
     tft.setCursor(7,27);
-    tft.print("\n  Connecting " + ssid + ".");
+    tft.setTextSize(2);
+    tft.print("Connecting..");
     int i=0;
     WiFi.begin(ssid, pwd);
 
     while (WiFi.status() != WL_CONNECTED) {
       if(tft.getCursorY()!=27 && tft.getCursorX()==0) tft.setCursor(7,tft.getCursorY());
-      tft.print(".");
       i++;
       if(i>20) {
+        getBrightness();
         displayError("Wifi Offline");
         wifiDisconnect();
         delay(500);
@@ -86,7 +84,7 @@ bool wifiConnectMenu(bool isAP) {
   else if (WiFi.status() != WL_CONNECTED) {
     int nets;
     WiFi.mode(WIFI_MODE_STA);
-    displayRedStripe("Scanning..",TFT_WHITE,FGCOLOR);
+    displayRedStripe("Scanning..",FGCOLOR, TFT_BLACK);
     nets=WiFi.scanNetworks();
     options = { };
     for(int i=0; i<nets; i++){

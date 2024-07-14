@@ -44,7 +44,6 @@ Keyboard_Class Keyboard = Keyboard_Class();
 #include "wifi_common.h"
 #include "settings.h"
 #include "Wire.h"
-#include "sniffer.h"
 
 #ifdef CARDPUTER
 #include "led_control.h"
@@ -147,7 +146,6 @@ void loop() {
         case 0: // WiFi
           if (!wifiConnected) {
             options = {
-              {"Sniffer", [=]() { sniffer_setup(); }},
               {"Connect WiFi", [=]() { wifiConnectMenu(); }},
               {"WiFi AP", [=]() { wifiConnectMenu(true); }}
             };

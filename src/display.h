@@ -28,8 +28,6 @@ void drawMainMenu(int index = 0);
 
 void listFiles(int index, String fileList[][3]);
 
-void drawWireguardStatus(int x, int y);
-
 void progressHandler(int progress, size_t total);
 
 int getBattery();
@@ -39,14 +37,6 @@ void drawBatteryStatus();
 void drawWifiSmall(int x, int y);
 
 void drawWifi(int x, int y);
-
-void drawBLESmall(int x, int y);
-
-void drawBLE(int x, int y);
-
-void drawRf(int x, int y);
-
-void drawRfid(int x, int y);
 
 void drawServer(int x, int y);
 

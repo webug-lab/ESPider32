@@ -60,12 +60,31 @@ void displayRedStripe(String text, uint16_t fgcolor, uint16_t bgcolor) {
       tft.setCursor(WIDTH/2 - FP*3*text.length(), HEIGHT/2-8);
     } 
     tft.println(text);
+    getBrightness();
 }
 
-void displayError(String txt)   { displayRedStripe(txt); }
-void displayWarning(String txt) { displayRedStripe(txt, TFT_BLACK,TFT_YELLOW); }
-void displayInfo(String txt)    { displayRedStripe(txt, TFT_WHITE, TFT_BLUE); }
-void displaySuccess(String txt) { displayRedStripe(txt, TFT_WHITE, TFT_DARKGREEN); }
+void displayError(String txt)   { 
+  int bl = MINBRIGHT + round(((255 - MINBRIGHT) * 0.20));
+  analogWrite(BACKLIGHT, bl);
+  displayRedStripe(txt, TFT_RED, TFT_BLACK); 
+}
+
+void displayWarning(String txt) { 
+  int bl = MINBRIGHT + round(((255 - MINBRIGHT) * 0.20));
+  analogWrite(BACKLIGHT, bl);
+  displayRedStripe(txt, TFT_YELLOW,TFT_BLACK); 
+}
+
+void displayInfo(String txt)    { 
+  int bl = MINBRIGHT + round(((255 - MINBRIGHT) * 0.20));
+  analogWrite(BACKLIGHT, bl);
+  displayRedStripe(txt, TFT_BLUE, TFT_BLACK); 
+}
+void displaySuccess(String txt) { 
+  int bl = MINBRIGHT + round(((255 - MINBRIGHT) * 0.20));
+  analogWrite(BACKLIGHT, bl);
+  displayRedStripe(txt, TFT_GREEN, TFT_BLACK); 
+}
 
 /*********************************************************************
 **  Function: loopOptions                             
@@ -379,20 +398,6 @@ void drawWifi(int x, int y) {
   tft.fillCircle(40+x,60+y,6,FGCOLOR);
   tft.drawSmoothArc(40+x,60+y,26,20,130,230,FGCOLOR, BGCOLOR,true);
   tft.drawSmoothArc(40+x,60+y,46,40,130,230,FGCOLOR, BGCOLOR,true);
-}
-
-void drawBLESmall(int x, int y) {
-  draw.deleteSprite();
-  draw.createSprite(17,17);
-  draw.fillSprite(BGCOLOR);
-
-  draw.drawWideLine(8, 8, 4, 5, 2, FGCOLOR,BGCOLOR);
-  draw.drawWideLine(8, 8, 4, 13,2, FGCOLOR,BGCOLOR);
-  draw.drawTriangle(8, 8, 8, 0,13,4,FGCOLOR);
-  draw.drawTriangle(8, 8, 8,16,13,12,FGCOLOR);
-
-  draw.pushSprite(x,y);
-  draw.deleteSprite();
 }
 
 void drawSettings(int x, int y) {

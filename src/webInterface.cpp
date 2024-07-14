@@ -5,7 +5,6 @@
 #include "mykeyboard.h"   // using keyboard when calling rename
 #include "display.h"      // using displayRedStripe as error msg
 
-
 struct Config {
   String httpuser;
   String httppassword;       // password to access web admin
@@ -439,12 +438,12 @@ void startWebUi(bool mode_ap) {
   configureWebServer();
   //tft.drawSmoothRoundRect(5,5,5,5,WIDTH-10,HEIGHT-10,ALCOLOR,BGCOLOR);
   setTftDisplay(0,0,ALCOLOR,FM);
+  tft.setTextColor(FGCOLOR);
   tft.fillScreen(BGCOLOR);
   tft.drawCentreString("WebUI",tft.width()/2,7,1);
   String txt;
   if(!mode_ap) txt = WiFi.localIP().toString();
   else txt = WiFi.softAPIP().toString();
-  tft.setTextColor(FGCOLOR);
   
 #ifndef STICK_C
   tft.drawCentreString("http://webug.local", tft.width()/2,25,1);
@@ -460,7 +459,7 @@ void startWebUi(bool mode_ap) {
   tft.setCursor(7,tft.getCursorY());
   tft.println("Pwd: " + String(default_httppassword));
   tft.setCursor(7,tft.getCursorY());
-  tft.setTextColor(TFT_RED);
+  tft.setTextColor(FGCOLOR);
   tft.setTextSize(FP);
 
   #ifdef CARDPUTER
