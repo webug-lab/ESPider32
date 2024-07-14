@@ -5,6 +5,13 @@
   ===========================================
 */
 
+/*
+-----------------------------------------------
+Modified 2024 (APGL-3.0) by Napol Thanarangkaun
+github.com/webug-lab/ESPider32
+-----------------------------------------------
+*/
+
 /* include all necessary libraries */ 
 
 #include "freertos/FreeRTOS.h"
@@ -17,11 +24,13 @@
 
 #include <Arduino.h>
 #include <TimeLib.h>
+#include <EEPROM.h>
 #include "FS.h"
 #include "PCAP.h"
 #include "display.h"
 #include "globals.h"
 #include "sd_functions.h"
+
 
 //===== SETTINGS =====//
 
@@ -45,6 +54,21 @@ String filename = "/" + (String)FILENAME + ".pcap";
 
 //===== FUNCTIONS =====//
 
+void writeIntToEEPROM(int address, int value) {
+  byte lowByte = value & 0xFF;        // แยกไบต์ต่ำ
+  byte highByte = (value >> 8) & 0xFF; // แยกไบต์สูง
+
+  EEPROM.write(address, lowByte);       // เขียนไบต์ต่ำไปยังที่อยู่ address
+  EEPROM.write(address + 1, highByte);  // เขียนไบต์สูงไปยังที่อยู่ address + 1
+}
+
+int readIntFromEEPROM(int address) {
+  byte lowByte = EEPROM.read(address);      // อ่านไบต์ต่ำจากที่อยู่ address
+  byte highByte = EEPROM.read(address + 1); // อ่านไบต์สูงจากที่อยู่ address + 1
+
+  return (highByte << 8) | lowByte; // รวมไบต์สูงและไบต์ต่ำเป็นค่า int
+}
+
 bool openFile(){
     uint32_t magic_number = 0xa1b2c3d4;
     uint16_t version_major = 2;
@@ -54,7 +78,6 @@ bool openFile(){
     uint32_t snaplen = 2500;
     uint32_t network = 105;
 
-	  //if(SD.exists(filename.c_str())) removeFile(SD);
 	  file = SD.open(filename, FILE_WRITE);
 	  if(file) {
       filewrite_32(magic_number);
@@ -127,7 +150,6 @@ void sniffer_setup() {
   tft.fillScreen(BGCOLOR);
   tft.setCursor(0, 0);
   Serial.begin(115200);
-  //delay(2000);
   Serial.println();
 
   sdcardSPI.begin(SDCARD_SCK, SDCARD_MISO, SDCARD_MOSI, SDCARD_CS);
