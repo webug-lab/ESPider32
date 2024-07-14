@@ -12,6 +12,7 @@
 bool wifiConnect(String ssid, int encryptation, bool isAP) {
   if(!isAP) {
 
+    EEPROM.begin(EEPROMSIZE);
     pwd = EEPROM.readString(10); //password
 
     delay(200);

@@ -206,53 +206,23 @@ void drawOptions(int index,const std::vector<std::pair<std::string, std::functio
 void drawSubmenu(int index,const std::vector<std::pair<std::string, std::function<void()>>>& options, String system) {
     int menuSize = options.size();
     tft.setTextColor(TFT_RED,BGCOLOR);
-    //tft.fillRect(6,26,WIDTH-12,20,BGCOLOR);
     tft.fillRoundRect(6,26,WIDTH,HEIGHT-32,5,BGCOLOR);
     tft.setTextSize(FM);
     tft.setCursor(12,12);
     tft.setTextColor(FGCOLOR);
     tft.println("// " + system);
 
-    /*if (index-1>=0) {
-      tft.setTextSize(FM);
-      tft.setTextColor(FGCOLOR-0x2000);
-      tft.drawCentreString(options[index-1].first.c_str(),WIDTH/2, 42,SMOOTH_FONT);
-    } else {
-      tft.setTextSize(FM);
-      tft.setTextColor(FGCOLOR-0x2000);
-      tft.drawCentreString(options[menuSize-1].first.c_str(),WIDTH/2, 42,SMOOTH_FONT);
-    }*/
-
     tft.setTextSize(FG);
     tft.setTextColor(FGCOLOR);
     tft.drawCentreString(options[index].first.c_str(),WIDTH/2, 67,SMOOTH_FONT);
-
-    /*if (index+1<menuSize) {
-      tft.setTextSize(FM);
-      tft.setTextColor(FGCOLOR-0x2000);
-      tft.drawCentreString(options[index+1].first.c_str(),WIDTH/2, 102,SMOOTH_FONT);
-    } else {
-      tft.setTextSize(FM);
-      tft.setTextColor(FGCOLOR-0x2000);
-      tft.drawCentreString(options[0].first.c_str(),WIDTH/2, 102,SMOOTH_FONT);
-    }*/
-
-    //tft.drawFastHLine(WIDTH/2 - options[index].first.size()*FG*LW/2, 67+FG*LH,options[index].first.size()*FG*LW,FGCOLOR);
-    //tft.fillRect(tft.width()-5,index*tft.height()/menuSize,5,tft.height()/menuSize,FGCOLOR);
-
 }
 
 void drawMainBorder() {
     tft.fillScreen(BGCOLOR);
     setTftDisplay(12, 12, FGCOLOR, 1, BGCOLOR);
 
-    // if(wifiConnected) {tft.print(timeStr);} else {tft.print("webug 1.0b");}
-
     int i=0;
-    if(wifiConnected) { drawWifiSmall(WIDTH - 100, 7); i++;}               //Draw Wifi Symbol beside battery
-
-    //tft.drawRoundRect(5, 5, WIDTH - 10, HEIGHT - 10, 5, FGCOLOR);
-    //tft.drawLine(5, 25, WIDTH - 6, 25, FGCOLOR);
+    if(wifiConnected) { drawWifiSmall(WIDTH - 100, 7); i++;}   //Draw Wifi Symbol beside battery
     drawBatteryStatus();
 }
 
@@ -382,9 +352,6 @@ void listFiles(int index, String fileList[][3]) {
         if (i==(start+MAX_ITEMS) || fileList[i][2]=="") break;
     }
 }
-
-
-// desenhos do menu principal, sprite "draw" com 80x80 pixels
 
 void drawWifiSmall(int x, int y) {
   tft.fillRect(x,y,20,20,BGCOLOR);
