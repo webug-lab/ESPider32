@@ -10,10 +10,6 @@ void setBrightnessMenu();
 
 void setUIColor();
 
-void setClock();
-
-void runClockLoop();
-
 int gsetIrTxPin(bool set = false);
 
 int gsetIrRxPin(bool set = false);

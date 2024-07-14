@@ -1,4 +1,5 @@
 #include "display.h"
+#include "globals.h"
 #include "mykeyboard.h"
 #include "settings.h"
 
@@ -394,17 +395,6 @@ void drawBLESmall(int x, int y) {
   draw.deleteSprite();
 }
 
-void drawBLE(int x, int y) {
-  tft.fillRect(x,y,80,80,BGCOLOR);
-  tft.drawWideLine(40+x,53+y,2+x,26+y,5,FGCOLOR,BGCOLOR);
-  tft.drawWideLine(40+x,26+y,2+x,53+y,5,FGCOLOR,BGCOLOR);
-  tft.fillTriangle(40+x,26+y,20+x,40+y,20+x,12+y,FGCOLOR);
-  tft.fillTriangle(40+x,53+y,20+x,40+y,20+x,68+y,FGCOLOR);
-  tft.drawArc(40+x,40+y,10,12,210,330,FGCOLOR,BGCOLOR);
-  tft.drawArc(40+x,40+y,23,25,210,330,FGCOLOR,BGCOLOR);
-  tft.drawArc(40+x,40+y,36,38,210,330,FGCOLOR,BGCOLOR);
-}
-
 void drawSettings(int x, int y) {
   tft.fillRect(x,y,80,80,BGCOLOR);
   int i=0;
@@ -412,28 +402,6 @@ void drawSettings(int x, int y) {
     tft.drawArc(40+x,40+y,30,20,15+60*i,45+60*i,FGCOLOR,BGCOLOR,true);
   }
   tft.drawArc(40+x,40+y,22,8,0,360,FGCOLOR,BGCOLOR,false);
-}
-
-void drawRf(int x, int y) {
-  tft.fillRect(x,y,80,80,BGCOLOR);
-  tft.fillCircle(40+x,30+y,7,FGCOLOR);
-  tft.fillTriangle(40+x,40+y,25+x,70+y,55+x,70+y,FGCOLOR);
-  tft.drawArc(40+x,30+y,18,15,40,140,FGCOLOR,BGCOLOR);
-  tft.drawArc(40+x,30+y,28,25,40,140,FGCOLOR,BGCOLOR);
-  tft.drawArc(40+x,30+y,38,35,40,140,FGCOLOR,BGCOLOR);
-  tft.drawArc(40+x,30+y,18,15,220,320,FGCOLOR,BGCOLOR);
-  tft.drawArc(40+x,30+y,28,25,220,320,FGCOLOR,BGCOLOR);
-  tft.drawArc(40+x,30+y,38,35,220,320,FGCOLOR,BGCOLOR);
-}
-
-void drawRfid(int x, int y) {
-  tft.fillRect(x,y,80,80,BGCOLOR);
-  tft.drawRoundRect(5+x,5+y,70,70,10,FGCOLOR);
-  tft.fillRect(0+x,40+y,40,40,BGCOLOR);
-  tft.drawCircle(15+x,65+y,7,FGCOLOR);
-  tft.drawArc(15+x,65+y,18,15,180,270,FGCOLOR,BGCOLOR);
-  tft.drawArc(15+x,65+y,28,25,180,270,FGCOLOR,BGCOLOR);
-  tft.drawArc(15+x,65+y,38,35,180,270,FGCOLOR,BGCOLOR);
 }
 
 void drawServer(int x, int y) {

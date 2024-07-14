@@ -1,8 +1,12 @@
 // Globals.h
 
-extern char16_t FGCOLOR;
+#ifndef GLOBALS_H
+#define GLOBALS_H
+
 #define ALCOLOR TFT_RED
 #define BGCOLOR TFT_BLACK
+
+extern char16_t FGCOLOR;
 
 #include <Arduino.h>
 #include <TFT_eSPI.h>
@@ -64,7 +68,9 @@ extern int RfTx;
 
 extern int RfRx;
 
+
 void readFGCOLORFromEEPROM();
 
 void backToMenu();
 
+#endif

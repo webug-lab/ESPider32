@@ -50,6 +50,8 @@ Keyboard_Class Keyboard = Keyboard_Class();
 #include "led_control.h"
 #endif
 
+char16_t FGCOLOR = TFT_WHITE;
+
 void setup() {
   Serial.begin(115200);
 
