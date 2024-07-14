@@ -41,6 +41,13 @@ bool wifiConnect(String ssid, int encryptation, bool isAP) {
       delay(500);
     }
 
+    if(WiFi.status() == WL_CONNECTED) { 
+      wifiConnected=true;
+      return true;
+    }
+
+    else return false;
+
   } else { //Running in Access point mode
     IPAddress AP_GATEWAY(172, 0, 0, 1);
     tft.fillScreen(BGCOLOR);
