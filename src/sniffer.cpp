@@ -54,21 +54,6 @@ String filename = "/" + (String)FILENAME + ".pcap";
 
 //===== FUNCTIONS =====//
 
-void writeIntToEEPROM(int address, int value) {
-  byte lowByte = value & 0xFF;        // แยกไบต์ต่ำ
-  byte highByte = (value >> 8) & 0xFF; // แยกไบต์สูง
-
-  EEPROM.write(address, lowByte);       // เขียนไบต์ต่ำไปยังที่อยู่ address
-  EEPROM.write(address + 1, highByte);  // เขียนไบต์สูงไปยังที่อยู่ address + 1
-}
-
-int readIntFromEEPROM(int address) {
-  byte lowByte = EEPROM.read(address);      // อ่านไบต์ต่ำจากที่อยู่ address
-  byte highByte = EEPROM.read(address + 1); // อ่านไบต์สูงจากที่อยู่ address + 1
-
-  return (highByte << 8) | lowByte; // รวมไบต์สูงและไบต์ต่ำเป็นค่า int
-}
-
 bool openFile(){
     uint32_t magic_number = 0xa1b2c3d4;
     uint16_t version_major = 2;
@@ -126,14 +111,37 @@ void event_handler(void *arg, esp_event_base_t event_base, int32_t event_id, voi
     }
 }
 
+// Added functions start
+void writeIntToEEPROM(int address, int value) {
+  byte lowByte = value & 0xFF;        
+  byte highByte = (value >> 8) & 0xFF; 
+  EEPROM.write(address, lowByte);       
+  EEPROM.write(address + 1, highByte);  
+}
+
+int readIntFromEEPROM(int address) {
+  byte lowByte = EEPROM.read(address);     
+  byte highByte = EEPROM.read(address + 1); 
+  return (highByte << 8) | lowByte; 
+}
+// Added functions end
+
 /* opens a new file */
 void openFile2(){
 
-  //searches for the next non-existent file name
-  int c = 0;
-  while(SD.open(filename)){
-    filename = "/" + (String)FILENAME + "_" + (String)c + ".pcap";
-    c++;
+  int saveC = readIntFromEEPROM(8);
+
+  if (saveC == 0) {
+     //searches for the next non-existent file name
+    int c = 0;
+    while(SD.open(filename)){
+      filename = "/" + (String)FILENAME + "_" + (String)c + ".pcap";
+      c++;
+    }
+    writeIntToEEPROM(8, c);
+  } else {
+    writeIntToEEPROM(8, saveC + 1);
+    filename = "/" + (String)FILENAME + "_" + (String)saveC + ".pcap";
   }
   
   fileOpen = openFile();
@@ -199,7 +207,7 @@ void sniffer_setup() {
 
   Serial.println("START");
   
-  displayRedStripe("START", TFT_RED, TFT_BLACK );
+  displayRedStripe("START", FGCOLOR, TFT_BLACK );
  
   sniffer_loop();
 
@@ -234,11 +242,12 @@ void sniffer_loop() {
           fileOpen = false; //update flag
           Serial.println(filename + " saved.");
           tft.setCursor(0, 20);
-          tft.setTextColor(TFT_WHITE, BGCOLOR);
+          tft.setTextColor(FGCOLOR, BGCOLOR);
           tft.setTextSize(2);
-          displayRedStripe(filename, TFT_RED, TFT_BLACK);
+          int readC = readIntFromEEPROM(8);
+          displayRedStripe((String)readC, FGCOLOR, TFT_BLACK);
           // tft.println(filename);
-          tft.setTextColor(TFT_RED, BGCOLOR);
+          tft.setTextColor(FGCOLOR, BGCOLOR);
           openFile2(); //open new file
         }
        // }
