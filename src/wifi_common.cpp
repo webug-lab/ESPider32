@@ -23,7 +23,7 @@ bool wifiConnect(String ssid, int encryptation, bool isAP) {
       EEPROM.end(); // Free EEPROM memory
     }
     
-    displayRedStripe("Climbing..",FGCOLOR, TFT_BLACK);
+    displayRedStripe("// Climbing",FGCOLOR, TFT_BLACK);
     int i=0;
     WiFi.begin(ssid, pwd);
 
@@ -81,7 +81,7 @@ bool wifiConnectMenu(bool isAP) {
   else if (WiFi.status() != WL_CONNECTED) {
     int nets;
     WiFi.mode(WIFI_MODE_STA);
-    displayRedStripe("Searching..", FGCOLOR, TFT_BLACK);
+    displayRedStripe("// Searching", FGCOLOR, TFT_BLACK);
     nets=WiFi.scanNetworks();
     options = { };
     for(int i=0; i<nets; i++){

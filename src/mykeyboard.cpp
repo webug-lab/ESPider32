@@ -157,7 +157,7 @@ String keyboard(String mytext, int maxSize, String msg) {
 
         
         if(x==1 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(55,2,50,20,FGCOLOR); }
-        else if(caps) { tft.fillRect(55,2,50,20,TFT_DARKGREY); tft.setTextColor(FGCOLOR, TFT_DARKGREY); }
+        else if(caps) { tft.fillRect(55,2,50,20,BGCOLOR); tft.setTextColor(FGCOLOR, BGCOLOR); }
         else tft.setTextColor(FGCOLOR, BGCOLOR);
         tft.drawString("CAP", 64, 4);
       
@@ -172,7 +172,7 @@ String keyboard(String mytext, int maxSize, String msg) {
       }
 
       tft.setTextSize(FP);
-      tft.setTextColor(FGCOLOR, 0x5AAB);
+      tft.setTextColor(FGCOLOR, BGCOLOR);
       tft.drawString(msg.substring(0,38), 3, 24);
       
       tft.setTextSize(FM);
@@ -266,7 +266,7 @@ String keyboard(String mytext, int maxSize, String msg) {
         tft.setCursor((cX-fS*LW),cY);
         tft.setTextColor(FGCOLOR,BGCOLOR);
         tft.print(" "); 
-        tft.setTextColor(FGCOLOR, 0x5AAB);
+        tft.setTextColor(FGCOLOR, BGCOLOR);
         tft.setCursor(cX-fS*LW,cY);
         cX=tft.getCursorX();
         cY=tft.getCursorY();
@@ -296,7 +296,7 @@ String keyboard(String mytext, int maxSize, String msg) {
         tft.setCursor((cX-fS*LW),cY);
         tft.setTextColor(FGCOLOR,BGCOLOR);
         tft.print(" "); 
-        tft.setTextColor(FGCOLOR, 0x5AAB);
+        tft.setTextColor(FGCOLOR, BGCOLOR);
         tft.setCursor(cX-fS*LW,cY);
         cX=tft.getCursorX();
         cY=tft.getCursorY();         
@@ -440,7 +440,7 @@ String keyboard(String mytext, int maxSize, String msg) {
 
       
       if(x==1 && y==-1) { tft.setTextColor(BGCOLOR, FGCOLOR); tft.fillRect(27,2,25,10,FGCOLOR); }
-      else if(caps) { tft.fillRect(55,2,50,20,TFT_DARKGREY); tft.setTextColor(FGCOLOR, TFT_DARKGREY); }
+      else if(caps) { tft.fillRect(55,2,50,20,BGCOLOR); tft.setTextColor(FGCOLOR, BGCOLOR); }
       else tft.setTextColor(FGCOLOR, BGCOLOR);
       tft.drawString("CAP", 30, 4);
     
@@ -460,7 +460,7 @@ String keyboard(String mytext, int maxSize, String msg) {
       tft.setTextSize(FM);
 
 
-      tft.setTextColor(FGCOLOR, 0x5AAB);    
+      tft.setTextColor(FGCOLOR, BGCOLOR);    
       if(mytext.length()>19) { 
         tft.setTextSize(FP);
         if(mytext.length()>38) { 
