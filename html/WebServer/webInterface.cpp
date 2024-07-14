@@ -408,7 +408,6 @@ void startWebUi(bool mode_ap) {
   }
   
   // configure web server
-  Serial.println("Configuring Webserver ...");
   server = (WebServer*)malloc(sizeof(WebServer));
   new (server) WebServer(config.webserverporthttp);
 
@@ -446,9 +445,6 @@ void startWebUi(bool mode_ap) {
   tft.drawCentreString("press Pwr to stop", tft.width()/2,tft.height()-15,1);
   #endif
 
-  disableCore0WDT();
-  disableCore1WDT();
-  disableLoopWDT();
   while (!checkEscPress()) {
       server->handleClient();
       // nothing here, just to hold the screen until the server is on.

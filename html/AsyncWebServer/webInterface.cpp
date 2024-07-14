@@ -397,7 +397,6 @@ file_size = 0;
   }
   
   // configure web server
-  Serial.println("Configuring Webserver ...");
   #if defined(CARDPUTER) || defined(STICK_C_PLUS2)
   server = (AsyncWebServer*)malloc(sizeof(AsyncWebServer));
   #else
@@ -438,10 +437,6 @@ file_size = 0;
   #else
   tft.drawCentreString("press Pwr to stop", tft.width()/2,tft.height()-15,1);
   #endif
-
-  disableCore0WDT();
-  disableCore1WDT();
-  disableLoopWDT();
   while (!checkSelPress()) {
       // nothing here, just to hold the screen until the server is on.
   }

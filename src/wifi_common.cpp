@@ -42,15 +42,15 @@ bool wifiConnect(String ssid, int encryptation, bool isAP) {
     }
 
     if(WiFi.status() == WL_CONNECTED) { 
+      tft.fillScreen(TFT_BLACK);
       wifiConnected=true;
       return true;
     }
-
     else return false;
 
   } else { //Running in Access point mode
     IPAddress AP_GATEWAY(172, 0, 0, 1);
-    tft.fillScreen(BGCOLOR);
+    tft.fillScreen(TFT_BLACK);
     WiFi.mode(WIFI_AP);
     WiFi.softAPConfig(AP_GATEWAY, AP_GATEWAY, IPAddress(255, 255, 255, 0));
     WiFi.softAP("cloud-in", "",6,0,4,false);
@@ -61,7 +61,6 @@ bool wifiConnect(String ssid, int encryptation, bool isAP) {
   delay(200);
   sprite.deleteSprite();
   returnToMenu=true;
-  return true;
 }
 
 
@@ -97,6 +96,7 @@ bool wifiConnectMenu(bool isAP) {
     }
     delay(200);
     loopOptions(options);
+    tft.fillScreen(TFT_BLACK);
     delay(200);
   } 
   

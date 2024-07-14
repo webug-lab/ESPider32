@@ -67,7 +67,7 @@ void setup() {
   resetTftDisplay();
 
   #if defined(BACKLIGHT)
-  //pinMode(BACKLIGHT, OUTPUT);
+  pinMode(BACKLIGHT, OUTPUT);
   #endif
 
   getBrightness();

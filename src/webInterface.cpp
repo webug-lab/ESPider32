@@ -422,21 +422,18 @@ void startWebUi(bool mode_ap) {
   }
 
   if (WiFi.status() != WL_CONNECTED) {
-    // Choose wifi access mode
     wifiConnectMenu(mode_ap);
-  }
+  } 
   
-  // configure web server
-  Serial.println("Configuring Webserver ...");
-#ifdef STICK_C_PLUS2
-  server=(WebServer*)ps_malloc(sizeof(WebServer));
-#else
-  server=(WebServer*)malloc(sizeof(WebServer));
-#endif
+  #ifdef STICK_C_PLUS2
+    server=(WebServer*)ps_malloc(sizeof(WebServer));
+  #else
+    server=(WebServer*)malloc(sizeof(WebServer));
+  #endif
+  
   new (server) WebServer(config.webserverporthttp);
 
   configureWebServer();
-  //tft.drawSmoothRoundRect(5,5,5,5,WIDTH-10,HEIGHT-10,ALCOLOR,BGCOLOR);
   setTftDisplay(0,0,ALCOLOR,FM);
   tft.setTextColor(FGCOLOR);
   tft.fillScreen(BGCOLOR);
@@ -468,9 +465,6 @@ void startWebUi(bool mode_ap) {
   tft.drawCentreString("press Pwr to stop", tft.width()/2,tft.height()-15,1);
   #endif
 
-  disableCore0WDT();
-  disableCore1WDT();
-  disableLoopWDT();
   while (!checkEscPress()) {
       server->handleClient();
       // nothing here, just to hold the screen until the server is on.
